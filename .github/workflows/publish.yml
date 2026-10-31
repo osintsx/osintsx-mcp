@@ -1,0 +1,44 @@
+name: publish
+
+# Publishes to npm (trusted publishing) and the MCP Registry.
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+      - run: npm ci
+      - run: npm test
+      - name: Publish to npm
+        run: |
+          V=$(node -p "require('./package.json').version")
+          if npm view "osintsx-mcp@$V" version >/dev/null 2>&1; then
+            echo "osintsx-mcp@$V is already on npm"
+          else
+            npm publish --access public
+          fi
+      - name: Wait for npm
+        run: |
+          V=$(node -p "require('./package.json').version")
+          for i in $(seq 1 30); do
+            npm view "osintsx-mcp@$V" version >/dev/null 2>&1 && exit 0
+            sleep 10
+          done
+          echo "osintsx-mcp@$V never showed up on npm"; exit 1
+      - name: Install mcp-publisher
+        run: |
+          curl -fsSL "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_linux_amd64.tar.gz" | tar xz mcp-publisher
+      - run: ./mcp-publisher login github-oidc
+      - run: ./mcp-publisher publish

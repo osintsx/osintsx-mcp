@@ -1,0 +1,42 @@
+{
+  "name": "osintsx-mcp",
+  "version": "0.1.3",
+  "mcpName": "io.github.osintsx/osintsx-mcp",
+  "description": "MCP server for the OSINT.SX API: account lookups by email, phone, username or name, and the OSINT.SX tools, from any MCP client.",
+  "type": "module",
+  "bin": {
+    "osintsx-mcp": "index.js"
+  },
+  "files": [
+    "index.js",
+    "api.js",
+    "size.js",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20.3"
+  },
+  "license": "MIT",
+  "homepage": "https://osint.sx/api",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osintsx/osintsx-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/osintsx/osintsx-mcp/issues"
+  },
+  "keywords": [
+    "mcp",
+    "osint",
+    "model-context-protocol",
+    "email-lookup",
+    "username-search"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "zod": "^4.6.7"
+  }
+}

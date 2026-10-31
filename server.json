@@ -1,0 +1,31 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.osintsx/osintsx-mcp",
+  "title": "OSINT.SX",
+  "description": "Search an email, phone, username or name across every OSINT.SX source, plus account history tools.",
+  "websiteUrl": "https://osint.sx/api",
+  "repository": {
+    "url": "https://github.com/osintsx/osintsx-mcp",
+    "source": "github"
+  },
+  "version": "0.1.3",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "osintsx-mcp",
+      "version": "0.1.3",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "OSINTSX_API_KEY",
+          "description": "Your OSINT.SX API key, from https://osint.sx/keys",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string"
+        }
+      ]
+    }
+  ]
+}
